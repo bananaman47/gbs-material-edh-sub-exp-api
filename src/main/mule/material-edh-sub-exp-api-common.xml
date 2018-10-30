@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="materialEdhSubExpApiSetLoggingVariablesSubFlow" doc:id="5eec48c9-fc49-4ee7-b878-ca6ff25f4cd6">
+	        <ee:transform doc:name="setPayloadAndOperation" doc:id="cf2046fe-3e4a-457d-9176-1515d12926d1" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="operationType" ><![CDATA[%dw 2.0
+output application/java
+---
+write((payload.body pluck($$))[0],"text/plain") ]]></ee:set-variable>
+				<ee:set-variable variableName="originalPayload" ><![CDATA[%dw 2.0
+output application/xml
+---
+payload.body]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:id="f3fa80e7-8b16-4a24-9f3a-3492904a0b7d" doc:name="setLoggingVariables-1">
+            <ee:variables>
+                <ee:set-variable variableName="organizationId"><![CDATA[%dw 2.0
+output application/java
+---
+p('materialedhsubexpapi.main.organizationId')]]></ee:set-variable>
+                <ee:set-variable variableName="originalProcessDatetime"><![CDATA[%dw 2.0
+output application/java
+---
+now() as  DateTime {format: ("yyyy-MM-dd'T'HH:mm:ss.SSS")}]]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <ee:transform doc:id="5af4e45b-da02-448e-bf8d-d575ac4b4e03" doc:name="setLoggingVariables-2">
+            <ee:variables>
+                <ee:set-variable variableName="domainName"><![CDATA[%dw 2.0
+output application/java
+---
+p('materialedhsubexpapi.main.domainName')]]></ee:set-variable>
+                <ee:set-variable variableName="integrationId"><![CDATA[%dw 2.0
+output application/java
+---
+p('materialedhsubexpapi.main.integrationId')]]></ee:set-variable>
+                <ee:set-variable variableName="integrationName"><![CDATA[%dw 2.0
+output application/java
+---
+p('materialedhsubexpapi.main.integrationName')]]></ee:set-variable>
+                <ee:set-variable variableName="transactionId"><![CDATA[%dw 2.0
+output application/java
+var defaultTransacionId = (vars.organizationId as String) ++ (uuid() as String) ++ (vars.originalProcessDatetime as String)
+---
+if (vars.operationType == "ProcessNewMaterial") 
+	(if (payload.body.ProcessNewMaterial.MessageId == null) defaultTransacionId else payload.body.ProcessNewMaterial.MessageId) 
+else
+	(if (payload.body.ProcessModifyMaterial.MessageId == null) defaultTransacionId else payload.body.ProcessModifyMaterial.MessageId) ]]></ee:set-variable>
+                <ee:set-variable variableName="logTarget"><![CDATA[%dw 2.0
+output application/java
+---
+p('materialedhsubexpapi.main.destinationSystemId')]]></ee:set-variable>
+                <ee:set-variable variableName="logSource"><![CDATA[%dw 2.0
+output application/java
+---
+p('materialedhsubexpapi.main.sourceSystemId')]]></ee:set-variable>
+                <ee:set-variable variableName="logProcessType"><![CDATA[%dw 2.0
+output application/java
+---
+p('materialedhsubexpapi.main.processType')]]></ee:set-variable>
+				<ee:set-variable variableName="apiFlowStatus" ><![CDATA[%dw 2.0
+output application/java
+---
+p('materialedhsubexpapi.main.logInProcessStatus')]]></ee:set-variable>
+				<ee:set-variable variableName="logMessageId" ><![CDATA[%dw 2.0
+output application/java
+---
+uuid()]]></ee:set-variable>
+            
+</ee:variables>
+        </ee:transform>
+		<set-variable doc:id="de316f47-7b10-43c3-974f-57a115ecb400" doc:name="setCorelationId" value="#[vars.transactionId]" variableName="logCorelationId"/>
+	
+</sub-flow>
+
+</mule>

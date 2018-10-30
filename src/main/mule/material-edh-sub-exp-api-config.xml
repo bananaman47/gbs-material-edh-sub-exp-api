@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc"
+	xmlns:anypoint-mq="http://www.mulesoft.org/schema/mule/anypoint-mq"
+	xmlns:apikit-soap="http://www.mulesoft.org/schema/mule/apikit-soap"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:spring="http://www.mulesoft.org/schema/mule/spring" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/spring http://www.mulesoft.org/schema/mule/spring/current/mule-spring.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
+http://www.mulesoft.org/schema/mule/apikit-soap http://www.mulesoft.org/schema/mule/apikit-soap/current/mule-apikit-soap.xsd
+http://www.mulesoft.org/schema/mule/anypoint-mq http://www.mulesoft.org/schema/mule/anypoint-mq/current/mule-anypoint-mq.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd">
+
+	<import doc:name="mcommon" doc:id="917753ab-c9ee-414b-a646-8e5b622b0900" file="mcommon.xml" />
+	<import doc:name="mconfig" doc:id="cac53117-c1a6-4df2-8647-66538de4b0ac" file="mconfig.xml" />
+	<configuration-properties doc:name="Configuration properties" doc:id="25641908-6fad-4db8-8cb8-8e44d772e119" file="config/${env}/material-edh-sub-exp-api-${env}.yaml" />
+	<secure-properties:config name="mconfigSecurePropertiesConfig" doc:name="Secure Properties Config" doc:id="00793157-842b-4a81-81a6-d67e3124ff8b" file="config/${env}/runtime-secure-${env}.yaml" key="${encryption.key}" >
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+	<configuration-properties doc:name="mconfigPropertiesConfig" doc:id="d9a354b9-2362-42fa-9c37-66b0ffd76ce3" file="config/${env}/runtime-${env}.yaml" />
+	<import doc:name="amgen-api-common" doc:id="13e32b41-a3b0-402d-97a4-a1c854bc8b72" file="amgen-api-common.xml" />
+	
+	<import doc:name="mcommon-exception" doc:id="be682d57-d4d8-4f1c-a8f7-b936edad8fd2" file="amgen-api-exception.xml" />
+	<configuration-properties doc:name="mcommon Configuration properties" doc:id="8c33dd75-aca7-402f-b6ca-6d8b044162de" file="config/mcommon-config.yaml" />
+</mule>

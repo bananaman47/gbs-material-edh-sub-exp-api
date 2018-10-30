@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<wsdl:definitions targetNamespace="http://xmlns.amgen.com/enterprise/services/MaterialClient/V1" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsmex="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s2="http://xmlns.amgen.com/enterprise/datatypes/AmgenTypes/v2" xmlns:s1="http://xmlns.amgen.com/enterprise/doctypes/Material/v1" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://xmlns.amgen.com/enterprise/services/MaterialClient/V1" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
+	<wsdl:types>
+		<s:schema elementFormDefault="qualified" targetNamespace="http://xmlns.amgen.com/enterprise/datatypes/AmgenTypes/v2">
+			<s:complexType name="CodeLength2AndDescriptionPairType">
+				<s:simpleContent>
+					<s:extension base="s:string">
+						<s:attribute name="code" type="s:string" /> 
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:complexType name="CodeLength4AndDescriptionPairType">
+				<s:simpleContent>
+					<s:extension base="s:string">
+						<s:attribute name="code" type="s:string" /> 
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:complexType name="CodeLength3AndDescriptionPairType">
+				<s:simpleContent>
+					<s:extension base="s:string">
+						<s:attribute name="code" type="s:string" /> 
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:complexType name="CodeAndDescriptionPairType">
+				<s:simpleContent>
+					<s:extension base="s:string">
+						<s:attribute name="code" type="s:string" /> 
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:complexType name="AdministrationType">
+				<s:sequence>
+					<s:element maxOccurs="1" minOccurs="1" name="LastUpdateDate" type="s:dateTime" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="LastUpdatedByWorkforceId" type="s:NMTOKEN" /> 
+				</s:sequence>
+			</s:complexType>
+		</s:schema>
+		<s:schema elementFormDefault="qualified" targetNamespace="http://xmlns.amgen.com/enterprise/services/MaterialClient/V1">
+			<s:import namespace="http://xmlns.amgen.com/enterprise/doctypes/Material/v1" /> 
+			<s:element name="ProcessNewMaterial" type="tns:ProcessNewMaterialRequestType" /> 
+			<s:complexType name="ProcessNewMaterialRequestType">
+				<s:sequence>
+					<s:element maxOccurs="1" minOccurs="0" name="MessageId" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" ref="s1:AmgenMaterial" /> 
+				</s:sequence>
+			</s:complexType>
+			<s:element name="ProcessModifyMaterial" type="tns:ProcessModifyMaterialRequestType" /> 
+			<s:complexType name="ProcessModifyMaterialRequestType">
+				<s:sequence>
+					<s:element maxOccurs="1" minOccurs="0" name="MessageId" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" ref="s1:AmgenMaterial" /> 
+				</s:sequence>
+			</s:complexType>
+			<s:element name="ProcessDeleteMaterial" type="tns:ProcessDeleteMaterialRequestType" /> 
+			<s:complexType name="ProcessDeleteMaterialRequestType">
+				<s:sequence>
+					<s:element maxOccurs="1" minOccurs="0" name="MessageId" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" ref="s1:AmgenMaterialIdentifier" /> 
+				</s:sequence>
+			</s:complexType>
+		</s:schema>
+		<s:schema elementFormDefault="qualified" targetNamespace="http://xmlns.amgen.com/enterprise/doctypes/Material/v1">
+			<s:import namespace="http://xmlns.amgen.com/enterprise/datatypes/AmgenTypes/v2" /> 
+			<s:element name="AmgenMaterial" type="s1:AmgenMaterialType" /> 
+			<s:complexType name="AmgenMaterialType">
+				<s:sequence>
+					<s:element maxOccurs="1" minOccurs="0" name="MaterialNumber" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="1" name="IsDeleted" type="s:boolean" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="MaterialDesc" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="AcquisitionDate" nillable="true" type="s:date" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="XPlantMaterialStatus">
+						<s:complexType>
+							<s:simpleContent>
+								<s:extension base="s2:CodeLength2AndDescriptionPairType" /> 
+							</s:simpleContent>
+						</s:complexType>
+					</s:element>
+					<s:element maxOccurs="1" minOccurs="0" name="BaseUOM" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="TradeName" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="DESIDrugCode" type="s:int" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="Dosage" type="s1:DosageType" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="GenericName" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="MaterialGroup" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="MaterialSubGroup" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="MaterialRevisionList" type="s1:ArrayOfMaterialRevisionType" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="ProcurementType" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="IsCoProduct" type="s:boolean" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="LabelDrugNumber" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="LabelDrugCode" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="ManufacturingStage">
+						<s:complexType>
+							<s:simpleContent>
+								<s:extension base="s2:CodeLength3AndDescriptionPairType" /> 
+							</s:simpleContent>
+						</s:complexType>
+					</s:element>
+					<s:element maxOccurs="1" minOccurs="0" name="Concentration" type="s1:ConcentrationType" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="Volume" type="s1:FillVolumeType" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="SalesCategoryCode3" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="FranchiseCode" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="WarehouseNumber" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="RegulatoryLevel" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="MaterialType" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="MaterialTypeDescription" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="HazardousMaterialCode" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="ManufacturingSiteBldg" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="SalesOrgList" type="s1:ArrayOfMaterialSalesOrgListTypeSalesOrg" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="AlternateUOMList" type="s1:ArrayOfAlternateUOMType" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="MaterialPlantList" type="s1:ArrayOfMaterialPlantListTypeMaterialPlant" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="Modality">
+						<s:complexType>
+							<s:simpleContent>
+								<s:extension base="s2:CodeLength3AndDescriptionPairType" /> 
+							</s:simpleContent>
+						</s:complexType>
+					</s:element>
+					<s:element maxOccurs="1" minOccurs="0" name="ProductFamily">
+						<s:complexType>
+							<s:simpleContent>
+								<s:extension base="s2:CodeAndDescriptionPairType" /> 
+							</s:simpleContent>
+						</s:complexType>
+					</s:element>
+					<s:element maxOccurs="1" minOccurs="0" name="SpecNumber" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="Administration" type="s2:AdministrationType" /> 
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="DosageType">
+				<s:sequence>
+					<s:element maxOccurs="1" minOccurs="1" name="Amount" nillable="true" type="s:decimal" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="UOM" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="Form">
+						<s:complexType>
+							<s:simpleContent>
+								<s:extension base="s2:CodeLength4AndDescriptionPairType" /> 
+							</s:simpleContent>
+						</s:complexType>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="ArrayOfMaterialRevisionType">
+				<s:sequence>
+					<s:element maxOccurs="unbounded" minOccurs="0" name="MaterialRevision" type="s1:MaterialRevisionType" /> 
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="MaterialRevisionType">
+				<s:sequence>
+					<s:element maxOccurs="1" minOccurs="0" name="MaterialRevisionLevel" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="MaterialRevisionValidFrom" nillable="true" type="s:date" /> 
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="ConcentrationType">
+				<s:sequence>
+					<s:element maxOccurs="1" minOccurs="0" name="Target" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="UOM" type="s:string" /> 
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="FillVolumeType">
+				<s:sequence>
+					<s:element maxOccurs="1" minOccurs="1" name="Quantity" nillable="true" type="s:decimal" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="UOM" type="s:string" /> 
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="ArrayOfMaterialSalesOrgListTypeSalesOrg">
+				<s:sequence>
+					<s:element maxOccurs="unbounded" minOccurs="0" name="SalesOrg">
+						<s:complexType>
+							<s:complexContent mixed="false">
+								<s:extension base="s1:MaterialSalesOrgType">
+									<s:attribute name="action" type="s1:actionType" /> 
+								</s:extension>
+							</s:complexContent>
+						</s:complexType>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="MaterialSalesOrgType">
+				<s:sequence>
+					<s:element maxOccurs="1" minOccurs="0" name="SalesOrganization" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="DistributionChannel" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="1" name="IsDeleted" type="s:boolean" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="SalesTextList" type="s1:ArrayOfSalesTextListTypeSalesText" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="DrugCategory" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="DrugTypeCodeIndicator" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="LabelDrugApprovalDate" nillable="true" type="s:date" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="MarketEntryDate" nillable="true" type="s:date" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="MarketEndDate" nillable="true" type="s:date" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="DeliveryPlant" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="PrimaryNationalDrugNumber" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="NationalDrugNumberCode" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="TherapeuticEquivalentCode" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="SalesRestrictionCode" type="s:string" /> 
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="ArrayOfSalesTextListTypeSalesText">
+				<s:sequence>
+					<s:element maxOccurs="unbounded" minOccurs="0" name="SalesText">
+						<s:complexType>
+							<s:simpleContent>
+								<s:extension base="s1:SalesTextType" /> 
+							</s:simpleContent>
+						</s:complexType>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="SalesTextType">
+				<s:simpleContent>
+					<s:extension base="s:string">
+						<s:attribute name="languageCode" type="s:string" /> 
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:simpleType name="actionType">
+				<s:restriction base="s:string">
+					<s:enumeration value="delete" /> 
+					<s:enumeration value="upsert" /> 
+				</s:restriction>
+			</s:simpleType>
+			<s:complexType name="ArrayOfAlternateUOMType">
+				<s:sequence>
+					<s:element maxOccurs="unbounded" minOccurs="0" name="AlternateUOM" type="s1:AlternateUOMType" /> 
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="AlternateUOMType">
+				<s:sequence>
+					<s:element maxOccurs="1" minOccurs="0" name="Name" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="1" name="Divisor" type="s:decimal" /> 
+					<s:element maxOccurs="1" minOccurs="1" name="Multiplier" type="s:decimal" /> 
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="ArrayOfMaterialPlantListTypeMaterialPlant">
+				<s:sequence>
+					<s:element maxOccurs="unbounded" minOccurs="0" name="MaterialPlant">
+						<s:complexType>
+							<s:complexContent mixed="false">
+								<s:extension base="s1:MaterialPlantType">
+									<s:attribute name="action" type="s1:actionType" /> 
+								</s:extension>
+							</s:complexContent>
+						</s:complexType>
+					</s:element>
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="MaterialPlantType">
+				<s:sequence>
+					<s:element maxOccurs="1" minOccurs="0" name="Plant" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="PlantDescription" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="1" name="IsDeleted" type="s:boolean" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="ProfitCenter" type="s:string" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="InspectionTypeList" type="s1:ArrayOfInspectionType" /> 
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="ArrayOfInspectionType">
+				<s:sequence>
+					<s:element maxOccurs="unbounded" minOccurs="0" name="InspectionType" type="s1:InspectionType" /> 
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="InspectionType">
+				<s:sequence>
+					<s:element maxOccurs="1" minOccurs="0" name="Type" type="s1:CodeLength8AndDescriptionPairType" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="AvgDurationInDays" type="s:integer" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="IsInspectionLot" type="s:boolean" /> 
+					<s:element maxOccurs="1" minOccurs="0" name="InspectionActive" type="s:boolean" /> 
+				</s:sequence>
+			</s:complexType>
+			<s:complexType name="CodeLength8AndDescriptionPairType">
+				<s:simpleContent>
+					<s:extension base="s:string">
+						<s:attribute name="code" type="s:string" /> 
+					</s:extension>
+				</s:simpleContent>
+			</s:complexType>
+			<s:element name="AmgenMaterialIdentifier" type="s1:AmgenMaterialIdentifierType" /> 
+			<s:complexType name="AmgenMaterialIdentifierType">
+				<s:sequence>
+					<s:element maxOccurs="1" minOccurs="0" name="MaterialNumber" type="s:string" /> 
+				</s:sequence>
+			</s:complexType>
+		</s:schema>
+	</wsdl:types>
+	<wsdl:message name="ProcessNewMaterialSoapIn">
+		<wsdl:part name="newMaterial" element="tns:ProcessNewMaterial" /> 
+	</wsdl:message>
+	<wsdl:message name="ProcessNewMaterialSoapOut" /> 
+	<wsdl:message name="ProcessModifyMaterialSoapOut" /> 
+	<wsdl:message name="ProcessDeleteMaterialSoapIn">
+		<wsdl:part name="deleteMaterial" element="tns:ProcessDeleteMaterial" /> 
+	</wsdl:message>
+	<wsdl:message name="ProcessDeleteMaterialSoapOut" /> 
+	<wsdl:message name="ProcessModifyMaterialSoapIn">
+		<wsdl:part name="modifyMaterial" element="tns:ProcessModifyMaterial" /> 
+	</wsdl:message>
+	<wsdl:portType name="MaterialClientV1_0SOAP">
+		<wsdl:operation name="ProcessNewMaterial">
+			<wsdl:input message="tns:ProcessNewMaterialSoapIn" /> 
+			<wsdl:output message="tns:ProcessNewMaterialSoapOut" /> 
+		</wsdl:operation>
+		<wsdl:operation name="ProcessModifyMaterial">
+			<wsdl:input message="tns:ProcessModifyMaterialSoapIn" /> 
+			<wsdl:output message="tns:ProcessModifyMaterialSoapOut" /> 
+		</wsdl:operation>
+		<wsdl:operation name="ProcessDeleteMaterial">
+			<wsdl:input message="tns:ProcessDeleteMaterialSoapIn" /> 
+			<wsdl:output message="tns:ProcessDeleteMaterialSoapOut" /> 
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="MaterialClientV1_0SOAP1" type="tns:MaterialClientV1_0SOAP">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" /> 
+		<wsdl:operation name="ProcessNewMaterial">
+			<soap12:operation soapAction="http://xmlns.amgen.com/enterprise/services/MaterialClient/V1/ProcessNewMaterial" style="document" /> 
+			<wsdl:input>
+				<soap12:body use="literal" /> 
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" /> 
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ProcessModifyMaterial">
+			<soap12:operation soapAction="http://xmlns.amgen.com/enterprise/services/MaterialClient/V1/ProcessModifyMaterial" style="document" /> 
+			<wsdl:input>
+				<soap12:body use="literal" /> 
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" /> 
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ProcessDeleteMaterial">
+			<soap12:operation soapAction="http://xmlns.amgen.com/enterprise/services/MaterialClient/V1/ProcessDeleteMaterial" style="document" /> 
+			<wsdl:input>
+				<soap12:body use="literal" /> 
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" /> 
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="MaterialClientV1_0SOAP" type="tns:MaterialClientV1_0SOAP">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" /> 
+		<wsdl:operation name="ProcessNewMaterial">
+			<soap:operation soapAction="http://xmlns.amgen.com/enterprise/services/MaterialClient/V1/ProcessNewMaterial" style="document" /> 
+			<wsdl:input>
+				<soap:body use="literal" /> 
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" /> 
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ProcessModifyMaterial">
+			<soap:operation soapAction="http://xmlns.amgen.com/enterprise/services/MaterialClient/V1/ProcessModifyMaterial" style="document" /> 
+			<wsdl:input>
+				<soap:body use="literal" /> 
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" /> 
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ProcessDeleteMaterial">
+			<soap:operation soapAction="http://xmlns.amgen.com/enterprise/services/MaterialClient/V1/ProcessDeleteMaterial" style="document" /> 
+			<wsdl:input>
+				<soap:body use="literal" /> 
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" /> 
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="MaterialEDHSubscriber_vs0">
+		<wsdl:port name="MaterialEDHSubscriber_vs0_http" binding="tns:MaterialClientV1_0SOAP">
+			<soap:address location="http://soa-prod.amgen.com:9905/MaterialEDHSubscriber_vs0" /> 
+		</wsdl:port>
+		<wsdl:port name="MaterialEDHSubscriber_vs0_http1" binding="tns:MaterialClientV1_0SOAP1">
+			<soap12:address location="http://soa-prod.amgen.com:9905/MaterialEDHSubscriber_vs0" /> 
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
